@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class ProductCategoryController extends Controller
@@ -51,7 +52,8 @@ class ProductCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = ProductCategory::findOrFail($id);
+        return view('product-categories.edit', compact('category'));
     }
 
     /**
@@ -59,7 +61,15 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category = ProductCategory::findOrFail($id);
+        $category->update($validated);
+
+        return redirect()->route('product-categories.index')
+            ->with('success', 'Kategori berhasil diperbarui.');
     }
 
     /**
@@ -67,6 +77,10 @@ class ProductCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = ProductCategory::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('product-categories.index')
+            ->with('success', 'Kategori berhasil dihapus.');
     }
 }

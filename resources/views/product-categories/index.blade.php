@@ -22,13 +22,23 @@
                     <tr class="border-b">
                         <th class="p-3 text-left">Nama Kategori</th>
                         <th class="p-3 text-left">Dibuat</th>
+                        <th class="p-3 text-left">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($categories as $category)
                         <tr class="border-b">
-                            <td class="p-3">{{ $category.name }}</td>
+                            <td class="p-3">{{ $category->name }}</td>
                             <td class="p-3">{{ $category->created_at->format('d M Y') }}</td>
+                            <td class="p-3">
+                                <a href="{{ route('product-categories.edit', $category->id) }}" class="text-blue-600 hover:underline">Edit</a>
+
+                                <form action="{{ route('product-categories.destroy', $category->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:underline">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr>
