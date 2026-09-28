@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\MaterialCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('product-categories', ProductCategoryController::class);
     Route::resource('material-categories', MaterialCategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('units', UnitController::class);
 });
 
 require __DIR__.'/auth.php';
