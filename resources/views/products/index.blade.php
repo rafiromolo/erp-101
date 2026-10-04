@@ -56,6 +56,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:underline">Hapus</button>
                                 </form>
+                                <a href="{{ route('recipes.edit', $product->id) }}" class="text-green-600 hover:underline">Resep</a>
                             </td>
                         </tr>
                     @empty
